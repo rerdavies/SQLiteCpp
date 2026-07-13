@@ -5,6 +5,8 @@
 # Distributed under the MIT License (MIT) (See accompanying file LICENSE.txt
 # or copy at http://opensource.org/licenses/MIT) 
 
+option(SQLITE3_INSTALL "Enables the install target." ON)
+
 # add sources of the "sqlite3" static library
 add_library(sqlite3
  sqlite3.c
@@ -68,7 +70,7 @@ if (UNIX AND CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 # Allow the library to be installed via "make install" and found with "find_package"
-
+if (SQLITE3_INSTALL)
 include(GNUInstallDirs)
 install(TARGETS sqlite3
     EXPORT ${PROJECT_NAME}Targets
@@ -76,3 +78,4 @@ install(TARGETS sqlite3
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     COMPONENT libraries)
 install(FILES sqlite3.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT headers)
+endif(SQLITE3_INSTALL)

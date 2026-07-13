@@ -401,7 +401,11 @@ if (SQLITECPP_INSTALL)
         ${CMAKE_CURRENT_BINARY_DIR}/cmake/${PROJECT_NAME}Config.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
-endif (SQLITECPP_INSTALL)
+else()
+   # Disable install of /usr/include/sqlite3.h
+   set(SQLITE3_INSTALL OFF CACHE BOOL "Enables SQLITE 3 install targets" FORCE)
+
+endif()
 
 # Optional additional targets:
 
