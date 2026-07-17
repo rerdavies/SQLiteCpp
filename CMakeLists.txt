@@ -286,6 +286,11 @@ if (SQLITECPP_INTERNAL_SQLITE)
         message(FATAL_ERROR "Internal sqlite3 source does not support SQLITE_HAS_CODEC")
     endif()
 
+    # Keep bundled sqlite3 headers out of system include install set.
+    if (NOT SQLITECPP_INSTALL)
+        set(SQLITE3_INSTALL OFF CACHE BOOL "Enables SQLITE 3 install targets" FORCE)
+    endif()
+
     message(STATUS "Compile sqlite3 from source in subdirectory")
     option(SQLITE_ENABLE_RTREE "Enable RTree extension when building internal sqlite3 library." OFF)
     option(SQLITE_ENABLE_DBSTAT_VTAB "Enable DBSTAT read-only eponymous virtual table extension when building internal sqlite3 library." OFF)
@@ -404,7 +409,6 @@ if (SQLITECPP_INSTALL)
 else()
    # Disable install of /usr/include/sqlite3.h
    message(STATUS "SQLITECPP_INSTALL OFF")
-   set(SQLITE3_INSTALL OFF CACHE BOOL "Enables SQLITE 3 install targets" FORCE)
 
 endif()
 
